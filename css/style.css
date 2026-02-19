@@ -15,9 +15,14 @@ body {
 }
 
 .dark-mode {
-    background-color:#fa7979;
-    color:rgb(2, 2, 2);
+    background-color:#4d4b4b;
+    color:rgb(255, 255, 255);
     }
+
+.dark-mode .card {
+        background-color:#686868;
+        color:rgb(255, 255, 255);
+        }
 
 .container {
     max-width: 800px;
@@ -67,7 +72,7 @@ a {
 }
 
 a:hover {
-    color: #005fa3;
+    color: #ffffff;
 }
 
 table {
