@@ -15,7 +15,7 @@ function Contact() {
     }
 
     setError("");
-   
+     
     fetch("http://localhost/cv-api/process.php", {
       method: "POST",
       headers: {
