@@ -14,12 +14,30 @@ function Contact() {
       return; 
     }
 
-    alert(`Thank you ${name}, your message has been sent!`);
-    
-    setName("");
-    setEmail("");
-    setMessage("");
-    setError(""); 
+    setError("");
+
+    fetch("http://localhost/cv-api/process.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name, email, message })
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.message) {
+          alert(data.message);
+        } else {
+          alert("Unexpected error occurred.");
+        }
+        setName("");
+        setEmail("");
+        setMessage("");
+      })
+      .catch(err => {
+        console.error("Error:", err);
+        setError("Something went wrong. Please try again.");
+      });
   }
 
   return (
@@ -27,19 +45,15 @@ function Contact() {
       <section className="card">
         <h2>Contact Me</h2>
         <form onSubmit={handleSubmit}>
-          {/* Display error message if fields are empty */}
           {error && <div style={{ color: "red" }}>{error}</div>}
-          
           <input
             type="text"
-            id="name"
             placeholder="Name"
             value={name} 
             onChange={(e) => setName(e.target.value)} 
           />
           <input
             type="email"
-            id="email"
             placeholder="Email"
             value={email} 
             onChange={(e) => setEmail(e.target.value)} 
@@ -50,7 +64,7 @@ function Contact() {
             onChange={(e) => setMessage(e.target.value)} 
           ></textarea>
           <br />
-          <button type="submit" id="submitBtn">Send</button>
+          <button type="submit">Send</button>
         </form>
       </section>
 
